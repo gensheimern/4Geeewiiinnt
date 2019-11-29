@@ -87,8 +87,6 @@ public class BoardTest {
 
         FourWins fw2 = new FourWins(7,6);
 
-        /*
-        // DAS HIER FUNKTIONIERT
         fw2.throwChip(Player.X, 0);
         fw2.throwChip(Player.X, 1);
         fw2.throwChip(Player.X, 2);
@@ -100,41 +98,30 @@ public class BoardTest {
 
         fw2.throwChip(Player.X, 0);
         fw2.throwChip(Player.O, 1);
-
-         */
-
-        // DAS HIER FUNKTIONIERT NICHT!??!?!?!?!?!?!?!
-        fw2.throwChip(Player.O,6);
-        fw2.throwChip(Player.X,5);
-        fw2.throwChip(Player.X,4);
-        fw2.throwChip(Player.X,3);
-
-        fw2.throwChip(Player.O,5);
-        fw2.throwChip(Player.X,4);
-        fw2.throwChip(Player.X,3);
-
-        fw2.throwChip(Player.O,4);
-        fw2.throwChip(Player.X,3);
+        
+        assertEquals(Ergebnis.WIN, fw2.throwChip(Player.O,0));
 
 
-        //FÜr die Ausgabe in der Konsole
-        System.out.print(" \t\t0 \t\t1 \t\t 2 \t\t 3 \t\t 4 \t\t 5 \t\t 6");
-        System.out.println();
-        for (int i = 0; i < 6 ; i++) {
-            System.out.print(i + "\t|\t");
-            for (int j = 0; j <7 ; j++) {
-                if(fw2.board[j][i] == null){
-                    System.out.print(" " + "\t\t");
-
-                } else {
-                    System.out.print(fw2.board[j][i] + "\t\t");
-                }
-            }
-            System.out.println();
-        }
+        FourWins fw3 = new FourWins(7,6);
 
 
-        assertEquals(Ergebnis.WIN, fw2.throwChip(Player.O,3));
+        fw3.throwChip(Player.O,6);
+        fw3.throwChip(Player.X,5);
+        fw3.throwChip(Player.X,4);
+        fw3.throwChip(Player.X,3);
+
+        fw3.throwChip(Player.O,5);
+        fw3.throwChip(Player.X,4);
+        fw3.throwChip(Player.X,3);
+
+        fw3.throwChip(Player.O,4);
+        fw3.throwChip(Player.X,3);
+
+
+
+
+
+        assertEquals(Ergebnis.WIN, fw3.throwChip(Player.O,3));
 
 
 

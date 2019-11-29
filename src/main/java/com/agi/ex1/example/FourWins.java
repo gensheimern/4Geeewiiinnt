@@ -75,7 +75,7 @@ public class FourWins implements FourWinsLogic {
 
         //Überprüft ob der Spieler Diagonal gewonnen hat von Oben rechts nach unten links
         for (int i = 0; i < yLength-2 ; i++) {
-            for (int j = xLength-3; j < xLength ; j++) {
+            for (int j = xLength-3; j <= xLength ; j++) {
                 chip1 = board[j][i];
                 chip2 = board[j-1][i+1];
                 chip3 = board[j-2][i+2];
