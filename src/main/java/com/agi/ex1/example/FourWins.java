@@ -1,40 +1,72 @@
 package com.agi.ex1.example;
 
-import com.agi.ex1.example.FourWinsLogic;
 
 public class FourWins implements FourWinsLogic {
 
-    int xLength;
-    int yLength;
-    Player[][] board;
+    private int xLength;
+    private int yLength;
+    private Player[][] board;
+    private boolean isPlayerOneTurn;
+    private boolean isPlayerTwoTurn;
+
 
     public FourWins(int xLength, int yLength) {
         this.xLength = xLength-1;
         this.yLength = yLength-1;
+        this.isPlayerOneTurn = true;
+        this.isPlayerTwoTurn = false;
         board = new Player[xLength][yLength];
-    }
 
+    }
 
     @Override
     public Ergebnis throwChip(Player p, int column) {
 
-        if(column >6 || column <0){
+        if(checkIfPlayersMove(p)){
+
+        }else {
             return Ergebnis.ERROR;
         }
 
-        if(isFree(column)){
-            place(p, column);
+        //check if param @column is outOfBounds from xLengthMin & xLengthMax
+        if(column > getxLength() || column < 0){
+            return Ergebnis.ERROR;
         }
 
-        if(checkWinHorizontal()){
-            return Ergebnis.WIN;
-        } else if (checkWinVertical()) {
-            return Ergebnis.WIN;
-        } else if (checkWinDiagonal()) {
+        //check if limit of yLength is reached
+        if(isFree(column)){
+            place(p, column);
+        }else {
+            return Ergebnis.ERROR;
+        }
+
+        if(checkWinHorizontal() || checkWinVertical() || checkWinDiagonal()){
             return Ergebnis.WIN;
         } else {
-            return Ergebnis.OTHER;
+            if(isBoardFull()){
+                return Ergebnis.DRAW;
+            }
+            return Ergebnis.OPEN;
         }
+
+
+    }
+
+    public boolean checkIfPlayersMove(Player player){
+
+        if(isPlayerOneTurn && player == Player.O) {
+            this.isPlayerOneTurn = false;
+            this.isPlayerTwoTurn = true;
+            return true;
+        }
+        else if (isPlayerTwoTurn && player == Player.X){
+            this.isPlayerTwoTurn = false;
+            this.isPlayerOneTurn = true;
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     public boolean checkWinHorizontal(){
@@ -118,7 +150,6 @@ public class FourWins implements FourWinsLogic {
         return true;
     }
 
-
     public int[] place(Player p, int column){
 
         int[] pos = new int[2];
@@ -142,7 +173,6 @@ public class FourWins implements FourWinsLogic {
         return 0;
     }
 
-
     public boolean isFree(int column){
         if(board[column][yLength] == null){
             return true;
@@ -150,5 +180,52 @@ public class FourWins implements FourWinsLogic {
         return false;
     }
 
+
+
+
+
+
+
+
+    // ================== Getter & Setter ============================================
+
+    public int getxLength() {
+        return xLength;
     }
+
+    public void setxLength(int xLength) {
+        this.xLength = xLength;
+    }
+
+    public int getyLength() {
+        return yLength;
+    }
+
+    public void setyLength(int yLength) {
+        this.yLength = yLength;
+    }
+
+    public Player[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(Player[][] board) {
+        this.board = board;
+    }
+    public boolean isPlayerOneTurn() {
+        return isPlayerOneTurn;
+    }
+
+    public void setPlayerOneTurn(boolean playerOneTurn) {
+        isPlayerOneTurn = playerOneTurn;
+    }
+
+    public boolean isPlayerTwoTurn() {
+        return isPlayerTwoTurn;
+    }
+
+    public void setPlayerTwoTurn(boolean playerTwoTurn) {
+        isPlayerTwoTurn = playerTwoTurn;
+    }
+}
 

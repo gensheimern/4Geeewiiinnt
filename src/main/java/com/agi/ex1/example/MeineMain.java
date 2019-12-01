@@ -5,29 +5,59 @@ import java.time.Clock;
 public class MeineMain {
 
     public static void main(String[] args) {
-        //   FourWins fw = FourWins.getSingleton(7,6);
-        FourWins fw = new FourWins(6,7);
 
-        fw.throwChip(Player.X,5);
-        fw.throwChip(Player.X,6);
-        fw.throwChip(Player.X,3);
-        fw.throwChip(Player.X,4);
+        MeineMain mainRandome = new MeineMain();
+        mainRandome.playRandomeLoop(50);
+//        mainRandome.playRandom();
+    }
 
-        System.out.print(" \t\t0 \t\t1 \t\t 2 \t\t 3 \t\t 4 \t\t 5 \t\t 6");
-        System.out.println();
-        for (int i = 0; i < 6 ; i++) {
-            System.out.print(i + "\t|\t");
-            for (int j = 0; j <7 ; j++) {
-                if(fw.board[j][i] == null){
-                    System.out.print(" " + "\t\t");
+    private void printField(FourWins fw){
+
+        for (int j = fw.getyLength() ; j >= 0 ; j--) {
+            System.out.print((j+1) + "\t|\t");
+            for (int k = 0; k <= fw.getxLength() ; k++) {
+                if(fw.getBoard()[k][j] == null){
+                    System.out.print(" " + "\t|\t");
 
                 } else {
-                    System.out.print(fw.board[j][i] + "\t\t");
+                    System.out.print(fw.getBoard()[k][j] + "\t|\t");
                 }
             }
             System.out.println();
+            System.out.println("-------------------------------------------------------------");
+        }
     }
-        System.out.println(fw.checkWinHorizontal());
 
+    public void playRandomeLoop(int iteration){
+        for (int i = 0; i < iteration; i++) {
+            playRandom();
+        }
+    }
+
+
+    public void playRandom(){
+        FourWins fw = new FourWins(7,6);
+
+        boolean one = true;
+        for (int i = 0; i < 42 ; i++) {
+            Ergebnis ergebnis = fw.throwChip(one ? Player.O : Player.X,(int) Math.round(Math.random() * (fw.getxLength())));
+            one = !one;
+            if(ergebnis == Ergebnis.WIN){
+                printField(fw);
+                if(one){
+                    System.out.println("X HAT GEWONNEN");
+                }else {
+                    System.out.println("O HAT GEWONNEN");
+                }
+                return;
+            }else if(ergebnis == Ergebnis.ERROR){
+                System.out.print("FEHLER von ");
+                if(one){
+                    System.out.println("X");
+                }else {
+                    System.out.println("O");
+                }
+            }
+        }
     }
 }
