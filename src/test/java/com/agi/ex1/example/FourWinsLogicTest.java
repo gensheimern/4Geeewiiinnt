@@ -8,7 +8,7 @@ import java.time.Clock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class BoardTest {
+public class FourWinsLogicTest {
 
 
     @Test
@@ -27,13 +27,14 @@ public class BoardTest {
 
     @Test
     void test_HorizontalCheckWin() {
-        FourWins fw = new FourWins(7,6,4);
+        FourWins fw = new FourWins(7,6,5);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,1);
         fw.throwChip(Player.O,2);
+        fw.throwChip(Player.O,3);
 
-        assertEquals(Ergebnis.WIN, fw.throwChip(Player.O, 3));
+        assertEquals(Ergebnis.WIN, fw.throwChip(Player.O, 4));
 
     }
     @Test
@@ -49,11 +50,12 @@ public class BoardTest {
 
     @Test
     void test_VerticalWinCheck(){
-        FourWins fw = new FourWins(7,6,4);
+        FourWins fw = new FourWins(7,10,5);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,0);
+        fw.throwChip(Player.O, 0);
 
         assertEquals(Ergebnis.WIN, fw.throwChip(Player.O,0));
     }
@@ -74,7 +76,7 @@ public class BoardTest {
     void test_DiagonalWinCheck(){
 
         //Von Links nach Rechts
-        FourWins fw = new FourWins(7,6,4);
+        FourWins fw = new FourWins(7,6,5);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,1);

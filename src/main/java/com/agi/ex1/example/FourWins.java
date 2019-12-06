@@ -47,17 +47,16 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
 
     public boolean checkWinHorizontal() {
 
-        Player chip1, chip2, chip3, chip4;
+        Player[] playerList = new Player[WIN_STREET];
         for (int i = 0; i < Y_LENGTH; i++) {
-            for (int j = 0; j < X_LENGTH - 2; j++) {
-                chip1 = board[j][i];
-                chip2 = board[j + 1][i];
-                chip3 = board[j + 2][i];
-                chip4 = board[j + 3][i];
-
-                if (chip1 == chip2 && chip2 == chip3 && chip3 == chip4 && chip1 != null) {
+            for (int j = 0; j <= X_LENGTH - WIN_STREET -1; j++) {
+                for (int k = 0; k < WIN_STREET ; k++) {
+                    playerList[k] = board[j+k][i];
+                }
+                if(winCheckHelper(playerList)) {
                     return true;
                 }
+
             }
         }
         return false;
@@ -65,47 +64,44 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
 
     public boolean checkWinDiagonal() {
 
-        Player chip1, chip2, chip3, chip4;
+        Player[] playerList = new Player[WIN_STREET];
 
         //Überprüft ob der Spieler Diagonal gewonnen hat von Oben links nach unten rechts
-        for (int i = 0; i < Y_LENGTH - 3; i++) {
-            for (int j = 0; j < X_LENGTH - 3; j++) {
-                chip1 = board[j][i];
-                chip2 = board[j + 1][i + 1];
-                chip3 = board[j + 2][i + 2];
-                chip4 = board[j + 3][i + 3];
+        for (int i = 0; i < Y_LENGTH - WIN_STREET -2; i++) {
+            for (int j = 0; j < X_LENGTH - WIN_STREET-3; j++) {
+                for (int k = 0; k < WIN_STREET; k++) {
+                    playerList[k] = board[j+k][i+k];
+                }
 
-                if (chip1 == chip2 && chip2 == chip3 && chip3 == chip4 && chip1 != null) {
+                if(winCheckHelper(playerList)){
                     return true;
                 }
             }
         }
 
         //Überprüft ob der Spieler Diagonal gewonnen hat von Oben rechts nach unten links
-        for (int i = 0; i < Y_LENGTH - 2; i++) {
-            for (int j = X_LENGTH - 3; j <= X_LENGTH; j++) {
-                chip1 = board[j][i];
-                chip2 = board[j - 1][i + 1];
-                chip3 = board[j - 2][i + 2];
-                chip4 = board[j - 3][i + 3];
+        for (int i = 0; i < Y_LENGTH - WIN_STREET; i++) {
+            for (int j = WIN_STREET-1; j <= X_LENGTH; j++) {
+                for (int k = 0; k < WIN_STREET; k++) {
+                    playerList[k] = board[j-k][i+k];
+                }
 
-
-                //    System.out.println(chip1 + " " + chip2 + " " + chip3 + " " + chip4);
-
-                if (chip1 == chip2 && chip2 == chip3 && chip3 == chip4 && chip1 != null) {
+                if(winCheckHelper(playerList)){
                     return true;
                 }
+
             }
         }
         return false;
     }
 
     public boolean checkWinVertical() {
-        Player chip1, chip2, chip3, chip4;
+
         Player[] playerList = new Player[WIN_STREET];
-        for (int i = 0; i < Y_LENGTH - 2; i++) {
+        for (int i = 0; i <= Y_LENGTH - WIN_STREET; i++) {
             for (int j = 0; j < X_LENGTH; j++) {
                 for (int k = 0; k < WIN_STREET; k++) {
+
                     playerList[k] = board[j][i + k];
                 }
 
@@ -119,9 +115,14 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
     }
 
     private boolean winCheckHelper(Player[] p) {
-        boolean win = false;
+
+
+
         for (int k = 1; k < WIN_STREET; k++) {
-            if (p[k-1] != p[k]) {
+
+            System.out.println(p[k-1] + " " + p[k] + " " + p[k+1] +" " + p[k+2] + " " + p[k+3]);
+
+            if (p[k-1] != p[k] || p[k] == null || p[k-1] == null) {
                 return false;
             }
         }
