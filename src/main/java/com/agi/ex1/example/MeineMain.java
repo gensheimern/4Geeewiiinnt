@@ -6,7 +6,7 @@ public class MeineMain {
 
     public static void main(String[] args) {
         //   FourWins fw = FourWins.getSingleton(7,6);
-        FourWins fw = new FourWins(6,7);
+        FourWins fw = new FourWins(6,7,4);
 
         fw.throwChip(Player.X,5);
         fw.throwChip(Player.X,6);

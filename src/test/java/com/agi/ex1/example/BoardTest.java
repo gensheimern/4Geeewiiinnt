@@ -1,5 +1,6 @@
 package com.agi.ex1.example;
 
+import com.agi.ex1.example.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
@@ -12,13 +13,13 @@ public class BoardTest {
 
     @Test
     void test_PlaceChip() {
-        FourWins fw = new FourWins(7,6);
+        FourWins fw = new FourWins(7,6,4);
         assertEquals(Ergebnis.OTHER, fw.throwChip(Player.O, 0));
     }
 
     @Test
     void test_WrongColumnError(){
-        FourWins fw = new FourWins(7,6);
+        FourWins fw = new FourWins(7,6,4);
 
         assertEquals(Ergebnis.ERROR, fw.throwChip(Player.O,8));
 
@@ -26,7 +27,7 @@ public class BoardTest {
 
     @Test
     void test_HorizontalCheckWin() {
-        FourWins fw = new FourWins(7,6);
+        FourWins fw = new FourWins(7,6,4);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,1);
@@ -37,7 +38,7 @@ public class BoardTest {
     }
     @Test
     void test_HorizontalCheckOther(){
-        FourWins fw = new FourWins(7,6);
+        FourWins fw = new FourWins(7,6,4);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,1);
@@ -48,7 +49,7 @@ public class BoardTest {
 
     @Test
     void test_VerticalWinCheck(){
-        FourWins fw = new FourWins(7,6);
+        FourWins fw = new FourWins(7,6,4);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,0);
@@ -58,10 +59,22 @@ public class BoardTest {
     }
 
     @Test
+    void test_VerticalCheckOther(){
+        FourWins fw = new FourWins(7,6,4);
+
+        fw.throwChip(Player.O,0);
+        fw.throwChip(Player.O,0);
+        fw.throwChip(Player.X,0);
+        fw.throwChip(Player.O,0);
+
+        assertEquals(Ergebnis.OTHER, fw.throwChip(Player.O,0));
+    }
+
+    @Test
     void test_DiagonalWinCheck(){
 
         //Von Links nach Rechts
-        FourWins fw = new FourWins(7,6);
+        FourWins fw = new FourWins(7,6,4);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,1);
@@ -85,7 +98,7 @@ public class BoardTest {
 
         //Von Rechts nach Links
 
-        FourWins fw2 = new FourWins(7,6);
+        FourWins fw2 = new FourWins(7,6,4);
 
         fw2.throwChip(Player.X, 0);
         fw2.throwChip(Player.X, 1);
@@ -102,7 +115,7 @@ public class BoardTest {
         assertEquals(Ergebnis.WIN, fw2.throwChip(Player.O,0));
 
 
-        FourWins fw3 = new FourWins(7,6);
+        FourWins fw3 = new FourWins(7,6,4);
 
 
         fw3.throwChip(Player.O,6);
@@ -117,14 +130,29 @@ public class BoardTest {
         fw3.throwChip(Player.O,4);
         fw3.throwChip(Player.X,3);
 
-
-
-
-
         assertEquals(Ergebnis.WIN, fw3.throwChip(Player.O,3));
 
 
+    }
 
+    @Test
+    void test_DiagonalCheckOther(){
+
+        FourWins fw = new FourWins(7,6,4);
+
+        fw.throwChip(Player.O,0);
+        fw.throwChip(Player.X,1);
+        fw.throwChip(Player.O,2);
+        fw.throwChip(Player.X,3);
+
+        fw.throwChip(Player.O,1);
+        fw.throwChip(Player.X,2);
+        fw.throwChip(Player.O,3);
+
+        fw.throwChip(Player.X,2);
+        fw.throwChip(Player.O,3);
+
+        assertEquals(Ergebnis.OTHER, fw.throwChip(Player.O,3));
 
     }
 }
