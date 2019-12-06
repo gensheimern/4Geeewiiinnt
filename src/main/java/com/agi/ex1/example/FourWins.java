@@ -67,9 +67,9 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
         Player[] playerList = new Player[WIN_STREET];
 
         //Überprüft ob der Spieler Diagonal gewonnen hat von Oben links nach unten rechts
-        for (int i = 0; i < Y_LENGTH - WIN_STREET -2; i++) {
-            for (int j = 0; j < X_LENGTH - WIN_STREET-3; j++) {
-                for (int k = 0; k < WIN_STREET; k++) {
+        for (int i = 0; i < Y_LENGTH - WIN_STREET -3; i++) {
+            for (int j = 0; j < X_LENGTH - 2; j++) {
+                for (int k = 0; k <= WIN_STREET; k++) {
                     playerList[k] = board[j+k][i+k];
                 }
 
@@ -79,17 +79,20 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
             }
         }
 
+
+
         //Überprüft ob der Spieler Diagonal gewonnen hat von Oben rechts nach unten links
-        for (int i = 0; i < Y_LENGTH - WIN_STREET; i++) {
-            for (int j = WIN_STREET-1; j <= X_LENGTH; j++) {
-                for (int k = 0; k < WIN_STREET; k++) {
+        for (int i = 0; i < Y_LENGTH - 3; i++) {
+            for (int j = WIN_STREET; j <= X_LENGTH; j++) {
+                int k = 0;
+                for (; k < WIN_STREET && k < X_LENGTH; k++) {
                     playerList[k] = board[j-k][i+k];
                 }
-
-                if(winCheckHelper(playerList)){
-                    return true;
+                if(k == WIN_STREET) {
+                    if (winCheckHelper(playerList)) {
+                        return true;
+                    }
                 }
-
             }
         }
         return false;
@@ -100,15 +103,16 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
         Player[] playerList = new Player[WIN_STREET];
         for (int i = 0; i <= Y_LENGTH - WIN_STREET; i++) {
             for (int j = 0; j < X_LENGTH; j++) {
-                for (int k = 0; k < WIN_STREET; k++) {
+                int k = 0;
+                for (; k < WIN_STREET; k++) {
 
                     playerList[k] = board[j][i + k];
                 }
-
-                if(winCheckHelper(playerList)){
-                    return true;
+                if(k == WIN_STREET) {
+                    if (winCheckHelper(playerList)) {
+                        return true;
+                    }
                 }
-
             }
         }
         return false;
@@ -119,8 +123,6 @@ public class FourWins implements FourWinsLogic, TicTacToeLogic {
 
 
         for (int k = 1; k < WIN_STREET; k++) {
-
-            System.out.println(p[k-1] + " " + p[k] + " " + p[k+1] +" " + p[k+2] + " " + p[k+3]);
 
             if (p[k-1] != p[k] || p[k] == null || p[k-1] == null) {
                 return false;

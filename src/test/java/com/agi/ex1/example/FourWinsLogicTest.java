@@ -50,7 +50,7 @@ public class FourWinsLogicTest {
 
     @Test
     void test_VerticalWinCheck(){
-        FourWins fw = new FourWins(7,10,5);
+        FourWins fw = new FourWins(7,6,4);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,0);
@@ -76,7 +76,7 @@ public class FourWinsLogicTest {
     void test_DiagonalWinCheck(){
 
         //Von Links nach Rechts
-        FourWins fw = new FourWins(7,6,5);
+        FourWins fw = new FourWins(7,6,4);
 
         fw.throwChip(Player.O,0);
         fw.throwChip(Player.O,1);
