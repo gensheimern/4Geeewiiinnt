@@ -35,6 +35,8 @@ public class Board implements FourWinsLogic, TicTacToeLogic {
             return Ergebnis.WIN;
         } else if (checkWinDiagonal()) {
             return Ergebnis.WIN;
+        } else if (isBoardFull()) {
+            return Ergebnis.DRAW;
         } else {
             return Ergebnis.OTHER;
         }
@@ -57,9 +59,11 @@ public class Board implements FourWinsLogic, TicTacToeLogic {
             return Ergebnis.WIN;
         } else if (checkWinDiagonal()) {
             return Ergebnis.WIN;
-        } else {
+        } else if (isBoardFull()) {
+            return Ergebnis.DRAW;
+        }else {
             return Ergebnis.OTHER;
-        }
+            }
     }
 
     public boolean checkWinHorizontal() {
@@ -149,9 +153,11 @@ public class Board implements FourWinsLogic, TicTacToeLogic {
 
 
     private boolean isBoardFull() {
-        for (int i = 0; i < X_LENGTH; i++) {
-            if (board[i][Y_LENGTH] == null) {
-                return false;
+        for (int i = 0; i <= X_LENGTH; i++) {
+            for (int j = 0; j <=  Y_LENGTH ; j++) {
+                if(board[i][j] == null){
+                    return false;
+                }
             }
         }
         return true;
@@ -177,7 +183,6 @@ public class Board implements FourWinsLogic, TicTacToeLogic {
 
         if (board[column][row] == null) {
             board[column][row] = p;
-            System.out.println(column + " " + row);
         }
         pos[0] = column;
         pos[1] = row;

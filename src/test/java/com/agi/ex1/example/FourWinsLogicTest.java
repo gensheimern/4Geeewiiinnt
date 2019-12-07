@@ -23,6 +23,62 @@ public class FourWinsLogicTest {
     }
 
     @Test
+    void test_Draw7x6(){
+
+        Board fw = new Board(7, 6, 4);
+
+        fw.throwChip(Player.X,0);
+        fw.throwChip(Player.O,1);
+        fw.throwChip(Player.X,2);
+        fw.throwChip(Player.O,3);
+        fw.throwChip(Player.X,4);
+        fw.throwChip(Player.O,5);
+        fw.throwChip(Player.X,6);
+
+        fw.throwChip(Player.X,0);
+        fw.throwChip(Player.X,1);
+        fw.throwChip(Player.O,2);
+        fw.throwChip(Player.O,3);
+        fw.throwChip(Player.X,4);
+        fw.throwChip(Player.X,5);
+        fw.throwChip(Player.O,6);
+
+        fw.throwChip(Player.O,0);
+        fw.throwChip(Player.X,1);
+        fw.throwChip(Player.O,2);
+        fw.throwChip(Player.X,3);
+        fw.throwChip(Player.O,4);
+        fw.throwChip(Player.X,5);
+        fw.throwChip(Player.O,6);
+
+        fw.throwChip(Player.O,0);
+        fw.throwChip(Player.O,1);
+        fw.throwChip(Player.X,2);
+        fw.throwChip(Player.X,3);
+        fw.throwChip(Player.O,4);
+        fw.throwChip(Player.O,5);
+        fw.throwChip(Player.X,6);
+
+        fw.throwChip(Player.X,0);
+        fw.throwChip(Player.O,1);
+        fw.throwChip(Player.X,2);
+        fw.throwChip(Player.O,3);
+        fw.throwChip(Player.X,4);
+        fw.throwChip(Player.O,5);
+        fw.throwChip(Player.X,6);
+
+        fw.throwChip(Player.X,0);
+        fw.throwChip(Player.X,1);
+        fw.throwChip(Player.O,2);
+        fw.throwChip(Player.O,3);
+        fw.throwChip(Player.X,4);
+        fw.throwChip(Player.X,5);
+
+        assertEquals(Ergebnis.DRAW,fw.throwChip(Player.O,6));
+    }
+
+
+    @Test
     void test_HorizontalCheckWin() {
         Board fw = new Board(7, 6, 5);
 
